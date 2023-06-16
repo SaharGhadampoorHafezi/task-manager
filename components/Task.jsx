@@ -6,13 +6,25 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React from "react";
-import { useStore } from "../store/store";
+import React, { useState } from "react";
+import { taskStore } from "../store/store";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from '@mui/icons-material/Edit';
+import ModalByMe from "./ModalByMe";
 
 export default function Task() {
-  const tasks = useStore((state) => state.tasks);
-  const remove = useStore((state) => state.removeTask);
+  const [open, setOpen] = useState(false);
+
+  const tasks = taskStore((state) =>(state.tasks));
+  const remove = taskStore((state) => state.removeTask);
+  
+  const editHandler = () => {
+    setOpen(true);
+  }
+
+  const closeModalHandler = () => {
+    setOpen(false);
+  }
   return (
     <TableContainer>
       <Table>
@@ -30,13 +42,17 @@ export default function Task() {
               <TableCell>{task.description}</TableCell>
               <TableCell>{task.priority}</TableCell>
               <TableCell>{task.date}</TableCell>
-              <TableCell onClick={remove}>
-                <DeleteIcon />
+              <TableCell >
+                <DeleteIcon onClick={remove} />
+              </TableCell>
+              <TableCell>
+                <EditIcon onClick={editHandler} />
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+      <ModalByMe close={closeModalHandler} open={open} />
     </TableContainer>
   );
 }

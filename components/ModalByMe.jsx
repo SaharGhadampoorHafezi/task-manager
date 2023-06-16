@@ -22,7 +22,7 @@ export default function ModalByMe({ close, open }) {
   });
 
   const submit = taskStore((state) => state.addTask);
-   
+
   const onSubmitHandler = () => {
     submit(change);
     console.log(change);
@@ -30,29 +30,29 @@ export default function ModalByMe({ close, open }) {
 
   const titleHandler = (e) => {
     setChange((change) => ({
-      title: e.target.value,
-      ...change,
+      title: e.target.value
+      // ...change,
     }));
   };
 
   const descriptionHandler = (e) => {
     setChange((change) => ({
-      description: e.target.value,
-      ...change,
+      description: e.target.value
+      // ...change,
     }));
   };
 
   const dateHandler = (e) => {
     setChange((change) => ({
-      date: e.target.value,
-      ...change,
+      date: e.target.value
+      // ...change,
     }));
   };
 
   const autoCompleteHandler = (e) => {
     setChange((change) => ({
-      priority: e.target.value,
-      ...change,
+      priority: e.target.value
+      // ...change,
     }));
   };
 
