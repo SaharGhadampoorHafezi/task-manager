@@ -1,25 +1,32 @@
 import { Box, Button } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalByMe from "../components/ModalByMe";
 import Task from "../components/Task";
+import Filter from "../components/FilterByMe";
+import TableData from "../components/FilterByMe";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const openModal = () => setOpen(true);
   const closeModal = () => setOpen(false);
 
-  const openModalHandler = (e) => {
-    e.preventDefault();
-    openModal();
-  };
+  // const openModalHandler = (e) => {
+  //   // e.preventDefault();
+  //   openModal();
+  // };
 
   const closeModalHandler = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     closeModal();
   };
 
-  return (
+  return mounted ? (
     <div>
       <Box
         m={1}
@@ -32,9 +39,11 @@ export default function Home() {
         <Button onClick={() => setOpen(true)} variant="contained">
           Create a Task
         </Button>
+        <TableData />
+        
       </Box>
       <ModalByMe close={closeModalHandler} open={open} />
       <Task />
     </div>
-  );
+  ) : null;
 }

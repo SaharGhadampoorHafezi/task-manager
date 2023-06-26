@@ -11,12 +11,18 @@ import { taskStore } from "../store/store";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from '@mui/icons-material/Edit';
 import ModalByMe from "./ModalByMe";
+import Edit from "./Edit";
+import { useStore } from "zustand";
+import Filter from "./FilterByMe";
 
 export default function Task() {
   const [open, setOpen] = useState(false);
 
   const tasks = taskStore((state) =>(state.tasks));
   const remove = taskStore((state) => state.removeTask);
+  const replace = taskStore((state) => state.replaceTask);
+
+ const replaceTask = replace;
   
   const editHandler = () => {
     setOpen(true);
@@ -33,6 +39,7 @@ export default function Task() {
             <TableCell>Title</TableCell>
             <TableCell>Description</TableCell>
             <TableCell>Priority</TableCell>
+            <TableCell>Date</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -43,7 +50,7 @@ export default function Task() {
               <TableCell>{task.priority}</TableCell>
               <TableCell>{task.date}</TableCell>
               <TableCell >
-                <DeleteIcon onClick={remove} />
+                <DeleteIcon onClick={() => remove(task.title)} />
               </TableCell>
               <TableCell>
                 <EditIcon onClick={editHandler} />
@@ -52,7 +59,8 @@ export default function Task() {
           ))}
         </TableBody>
       </Table>
-      <ModalByMe close={closeModalHandler} open={open} />
+      <Edit close={closeModalHandler} open={open} replace={replaceTask} />
+      <Filter />
     </TableContainer>
   );
 }

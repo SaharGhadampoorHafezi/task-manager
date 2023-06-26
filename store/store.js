@@ -13,6 +13,10 @@ export const taskStore = create(
         set((store) => ({
           tasks: store.tasks.filter((task) => task.title !== title),
         })),
+      replaceTask: (newTask) =>
+        set((store) => ({
+          tasks: [...store.tasks, store.task === newTask],
+        })),
     }),
     {
       name: "task-storage",

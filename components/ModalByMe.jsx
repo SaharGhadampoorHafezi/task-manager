@@ -23,36 +23,44 @@ export default function ModalByMe({ close, open }) {
 
   const submit = taskStore((state) => state.addTask);
 
-  const onSubmitHandler = () => {
+  const onSubmitHandler = (event) => {
+    event.preventDefault()
     submit(change);
     console.log(change);
+    close();
+    setChange(() => ({
+      title: "",
+      description: "",
+      priority: "",
+      date: "",
+    }));
   };
 
   const titleHandler = (e) => {
     setChange((change) => ({
-      title: e.target.value
-      // ...change,
+      ...change,
+      title: e.target.value,
     }));
   };
 
   const descriptionHandler = (e) => {
     setChange((change) => ({
-      description: e.target.value
-      // ...change,
+      ...change,
+      description: e.target.value,
     }));
   };
 
   const dateHandler = (e) => {
     setChange((change) => ({
-      date: e.target.value
-      // ...change,
+      ...change,
+      date: e.target.value,
     }));
   };
 
   const autoCompleteHandler = (e) => {
     setChange((change) => ({
-      priority: e.target.value
-      // ...change,
+      ...change,
+      priority: e.target.value,
     }));
   };
 
